@@ -1,0 +1,63 @@
+.content-charts {
+    position: relative;
+    display: flex;
+    width: 80%;
+    /* justify-content: center; */
+    /* gap: 100px; */
+}
+
+.canvas-content {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    /* overflow: hidden; */
+}
+
+.chart {
+    width: 50%;
+    /* height: 100%; */
+    padding: 10px;
+}
+
+.table-comps {
+    width: 30%;
+    height: 50%;
+    table-layout: fixed;
+}
+
+.table-comps, .table-comps th, .table-comps td{
+    border-collapse: collapse;
+}
+
+.table-comps thead{
+    border: 2px solid transparent;
+    background: rgb(111, 189, 111);
+    color: #fff
+}
+
+.table-comps tbody tr:nth-child(odd) {
+    background-color: rgba(227, 227, 225, 0.7);
+}
+.table-comps tbody tr:nth-child(even) {
+    background-color: rgba(255, 255, 255, 1);
+}
+
+
+.container-table {
+    width: 70%; 
+    height: 50%;
+    max-height: 100%; 
+    overflow-y: scroll;
+}
+
+.container-table::-webkit-scrollbar {
+    width: 10px;
+    background: rgba(0, 0, 0, 0.45);
+    border-radius: 10px;
+}
+.container-table::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background: rgba(0, 0, 0, 0.9);
+}

@@ -1,0 +1,315 @@
+.results {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin: 4px 0;
+    border-radius: 5px;
+    background: transparent;
+  }
+
+  .fa-magnifying-glass {
+    background: #b90603;
+    color: #fff;
+    padding: 12.4px;
+    border-radius: 50%;
+    box-shadow: inset 2px 2px 4px #a00502,
+    inset -2px 2px 4px #a00502,
+    inset 2px -2px 4px #a00502,
+    inset -2px -2px 4px #a00502;
+  }
+  
+  .box {
+    background-color: #444;
+    width: 100%;
+    padding: 6px 10px;
+  }
+  
+  .box p {
+    color: #fff;
+    cursor: pointer;
+  }
+  /* ?? -- Form -- */
+  .form-pptr {
+    margin: 0 auto;
+    width: 90%;
+    /* border: 7px solid #193108; */
+    border-radius: 7px;
+    padding-top: 40px;
+    padding-bottom: 10px;
+  }
+  
+  .form-pptr .center {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .form-pptr .disp-flex {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 2px;
+  }
+  .form-pptr .disp-flex.between {
+    flex-wrap: nowrap;
+  }
+  
+  .form-pptr .disp-flex div {
+    margin: 4px 8px;
+  }
+  
+  .inps,
+  .input-desc {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .labels {
+    font-size: 21px;
+    font-weight: 700;
+    /* text-align: center; */
+  }
+  
+  .form-pptr .disp-flex input[type="date"],
+  .form-pptr .disp-flex input[type="text"],
+  .form-pptr .disp-flex input[type="checkbox"],
+  .form-pptr .disp-flex .inps textarea,
+  .form-pptr button {
+    background-color: var(--color);
+  }
+  
+  .form-pptr input {
+    appearance: none;
+    position: relative;
+    transition: 0.2s all linear;
+    color: #fff;
+  }
+  
+  .search-box .inp-search,
+  .form-pptr input::placeholder {
+    color: #fff;
+    font-size: 1em;
+    font-weight: 600;
+  }
+  
+  .inp-s {
+    /* border-radius: 5px; */
+    padding: 9px;
+    font-size: 1em;
+    border: 1px solid #ccc;
+    transition: .3s linear;
+  }
+
+  /* .inp-s:hover {
+
+  } */
+
+  .form-pptr .input-text {
+    padding: 10px;
+    font-size: 1em;
+    font-weight: 500;
+    /* border-radius: 5px; */
+  }
+  
+  .search-icon {
+    background-color: #222;
+    color: #eee;
+    padding: .7em;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+  }
+  
+  .form-pptr .disp-flex .input-radio,
+  .form-pptr .disp-flex .input-date {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  ::-webkit-calendar-picker-indicator {
+    border-radius: 5px;
+    background-color: #fff;
+  }
+  
+  .form-pptr .input-date > input {
+    /* border-radius: 5px; */
+    font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
+  }
+  
+  .form-pptr .input-date > input,
+  .form-pptr .input-date > .calendar-box {
+    margin: 0;
+  }
+  
+  .form-pptr .input-desc {
+    margin: 4px 8px;
+  }
+  
+  .form-pptr .input-desc > div > textarea {
+    /* height: 41.6px; */
+    resize: none;
+    width: 100%;
+    color: #fff;
+  }
+  .form-pptr .input-desc > div > textarea::placeholder {
+    color: #fff;
+  }
+  
+  .form-pptr .disp-flex input[type="radio"] {
+    margin-right: 5px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: #193108;
+    /* border-color: #000; */
+  }
+  .form-pptr .disp-flex input[type="radio"]:checked {
+    background-color: #fff;
+  }
+/*   
+  .form-pptr > .disp-flex input[type="radio"]:checked:hover {
+    background-color: #fff;
+  }
+   */
+  .form-pptr .btn-calendar {
+    margin-left: -3px;
+    font-size: 1.5em;
+    padding: .23em;
+    border-style: solid;
+    border-color: #999;
+    border-left-color: #fff;
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+    transition: 0.3s all linear;
+  }
+  
+  .form-pptr .fa-calendar {
+    border-radius: 4px;
+  }
+  
+  .form-pptr > .disp-flex input:checked {
+    border: 6px solid #000;
+  }
+  
+  /* .form-pptr .input-date:hover > input,
+  .form-pptr .disp-flex input:hover {
+    border-color: var(--color);
+    box-shadow: 1px 1px 10px var(--color);
+  } */
+  
+  .form-pptr .btn-send {
+    display: flex;
+    background-color: #555;
+    align-items: center;
+    /* border: 2px solid #999; */
+    /* border-radius: 5px; */
+  }
+  
+  .form-pptr .btnSubmit {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.1em;
+    font-weight: 800;
+    padding: 8px 12px;
+    background: linear-gradient(to right, #193108, #193108);
+  }
+  
+  .form-pptr .btnSubmit::before {
+    position: absolute;
+    content: '';
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 0;
+    height: 100%;
+    background: linear-gradient(to left, #b90603, #b90603);
+    transition: all .5s ease-in;
+  }
+  .form-pptr .btnSubmit:hover::before {
+    width: 100%;
+    background: linear-gradient(to right, #b90603, #b90603)
+  }
+
+  .form-pptr .btnSubmit p {
+    color: #fff;
+  }
+  .form-pptr .btnSubmit p,
+  .form-pptr .btnSubmit div {
+    z-index: 1;
+  }
+  
+  .form-pptr .icon {
+    background-color: transparent;
+    padding: 3px;
+    color: #fff;
+    transition: all 0.3s linear;
+    height: 25px;
+    width: 25px;
+  }
+  
+  .form-pptr .btnSubmit {
+    cursor: pointer;
+  }
+  
+  /* ?? -- End Form -- */
+  
+  .check-options {
+    display: inline-block;
+    height: 40px;
+    width: 100px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 20px;
+    overflow: hidden;
+  }
+  
+  .check-options .check-select-option {
+    z-index: 2;
+    opacity: 0;
+    appearance: none;
+    outline: none;
+    border: none !important;
+    border-radius: 20px;
+  }
+  .check-options .check-select-option,
+  .check-options .ball {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: 0;
+    cursor: pointer;
+  }
+
+  .check-options .ball {
+    background: #b90603;
+    transition: background .25s ease;
+  }
+  
+  .check-options .ball::after {
+    position: absolute;
+    content: '';
+    top: 5px;
+    left: 5px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: #FFF;
+    transition: transform .25s ease;
+  }
+
+  .check-options .check-select-option:checked ~ .ball::after {
+    transform: translateX(60px);
+  }
+  .check-options .check-select-option:checked ~ .ball {
+    background-color: #193108;
+  }

@@ -1,0 +1,59 @@
+/* .radioCert {
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 20px;
+    background-color: aquamarine;
+} */
+
+.modal-checkbox {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 30%;
+    background-color: #ccc;
+    z-index: 3;
+    transition: all .5s ease
+}
+
+.checkbox-cert {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    font-weight: 600;
+}
+
+.checkbox-cert label {
+    width: 100%;
+}
+
+.checkbox-cert input[type="checkbox"] {
+    /* ...existing styles */
+    border: none !important;
+    display: grid;
+    width: 2.4em;
+    height: 1.5em;
+    border-radius: 5px;
+    place-content: center;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.checkbox-cert input[type="checkbox"]::before {
+    font-family: fontAwesome;
+    display: inline-block;
+    content: "";
+    transform: scale(0);
+    transition: transform .2s linear;
+    /* box-shadow: inset 1em 1em var(--form-control-color); */
+}
+.checkbox-cert input[type="checkbox"]:checked::before {
+    content: "\f00c";
+    color: #fff;
+    transform: scale(1);
+}
+
+.modal-checkbox.hidden {
+    visibility: hidden;
+    scale: 0;
+}
