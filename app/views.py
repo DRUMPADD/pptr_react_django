@@ -197,7 +197,7 @@ def showRegions(request: HttpRequest):
 def showCompaniesFromRegion(request: HttpRequest, region : str):
     try:
         # cursor = connection.cursor()
-        # cursor.execute("SELECT id_emp, empresa FROM app_Empresa as emp, app_Region as r WHERE r.id_reg = emp.region_id and r.id_reg = %s", [region])
+        # cursor.execute("SELECT id_emp, empresa FROM app_Empresa as emp, app_region as r WHERE r.id_reg = emp.region_id and r.id_reg = %s", [region])
         # companies = cursor.fetchall()
         companies: list = list(Empresa.objects.filter(region__id_reg=region).values_list('id_emp', 'empresa'))
         return JsonResponse({"companies": companies}, status=200)
@@ -209,7 +209,7 @@ def showCompaniesFromRegion(request: HttpRequest, region : str):
 def showWorkersFromRegion(request: HttpRequest, region: str):
     try:
         # cursor = connection.cursor()
-        # cursor.execute("SELECT id_coor, trabajador FROM app_Trabajador as t, app_Region as r WHERE r.id_reg = t.region_id and r.id_reg = %s", [region])
+        # cursor.execute("SELECT id_coor, trabajador FROM app_trabajador as t, app_region as r WHERE r.id_reg = t.region_id and r.id_reg = %s", [region])
         # workers = cursor.fetchall()
         workers = list(Trabajador.objects.filter(region=region).values_list('id_coor', 'trabajador'))
         return JsonResponse({"workers": workers}, status=200)
@@ -250,7 +250,7 @@ def index(request: HttpRequest):
 def showRegions(request):
     try:
         cursor = connection.cursor()
-        cursor.execute("SELECT * FROM app_Region")
+        cursor.execute("SELECT * FROM app_region")
         regions = cursor.fetchall()
         return JsonResponse({"regions": regions}, status=200)
     except (OperationalError, IntegrityError, InternalError, DataError, InterfaceError, NotSupportedError) as e:
@@ -260,7 +260,7 @@ def showRegions(request):
 def showCompaniesFromRegion(request, region):
     try:
         cursor = connection.cursor()
-        cursor.execute("SELECT id_emp, empresa FROM app_Empresa as emp, app_Region as r WHERE r.id_reg = emp.region_id and r.id_reg = %s", [region])
+        cursor.execute("SELECT id_emp, empresa FROM app_Empresa as emp, app_region as r WHERE r.id_reg = emp.region_id and r.id_reg = %s", [region])
         companies = cursor.fetchall()
         return JsonResponse({"companies": companies}, status=200)
     except (OperationalError, IntegrityError, InternalError, DataError, InterfaceError, NotSupportedError) as e:
@@ -270,7 +270,7 @@ def showCompaniesFromRegion(request, region):
 def showWorkersFromRegion(request, region):
     try:
         cursor = connection.cursor()
-        cursor.execute("SELECT id_coor, trabajador FROM app_Trabajador as t, app_Region as r WHERE r.id_reg = t.region_id and r.id_reg = %s", [region])
+        cursor.execute("SELECT id_coor, trabajador FROM app_trabajador as t, app_region as r WHERE r.id_reg = t.region_id and r.id_reg = %s", [region])
         workers = cursor.fetchall()
         return JsonResponse({"workers": workers}, status=200)
     except (OperationalError, IntegrityError, InternalError, DataError, InterfaceError, NotSupportedError) as e:
@@ -280,7 +280,7 @@ def showWorkersFromRegion(request, region):
 def showSedesFromRegion(request, region):
     try:
         cursor = connection.cursor()
-        cursor.execute("SELECT id_sede, sede FROM app_Sede as s, app_Region as r WHERE r.id_reg = s.region_id and r.id_reg = %s", [region])
+        cursor.execute("SELECT id_sede, sede FROM app_Sede as s, app_region as r WHERE r.id_reg = s.region_id and r.id_reg = %s", [region])
         sedes = cursor.fetchall()
         return JsonResponse({"sedes": sedes}, status=200)
     except (OperationalError, IntegrityError, InternalError, DataError, InterfaceError, NotSupportedError) as e:
@@ -291,7 +291,7 @@ def showSedesFromRegion(request, region):
 def getRegion(request, region):
     try:
         cursor = connection.cursor()
-        cursor.execute(f"SELECT id_reg, region FROM app_Region WHERE region LIKE '%{region}%'")
+        cursor.execute(f"SELECT id_reg, region FROM app_region WHERE region LIKE '%{region}%'")
         region = cursor.fetchall()
         return JsonResponse({"regions": region}, status=200)
     except (OperationalError, IntegrityError, InternalError, DataError, InterfaceError, NotSupportedError) as e:
@@ -302,7 +302,7 @@ def getPermission(request, perm):
     try:
         print(perm)
         cursor = connection.cursor()
-        cursor.execute("SELECT id_perm, pptr FROM app_Permiso where pptr LIKE '%{}%'".format(perm))
+        cursor.execute("SELECT id_perm, pptr FROM app_permiso where pptr LIKE '%{}%'".format(perm))
         permission = cursor.fetchall()
         print(permission)
         return JsonResponse({"status": "success", "msg": permission}, status=200)
@@ -313,7 +313,7 @@ def getPermission(request, perm):
 def getPermissions(request):
     try:
         cursor = connection.cursor()
-        cursor.execute("SELECT * FROM app_Permiso")
+        cursor.execute("SELECT * FROM app_permiso")
         permission = cursor.fetchall()
         print(permission)
         return JsonResponse({"status": "success", "msg": permission}, status=200)
@@ -326,8 +326,8 @@ def getPermissionByPPTR(request, perm):
         print(perm)
         cursor = connection.cursor()
         cursor2 = connection.cursor()
-        cursor.execute("SELECT id_perm, date_request, date_begin_work, date_end_work, pptr, empresa_id, work, work_site, c.categoria, work_desc, t3.trabajador, t.trabajador, t2.trabajador, e.estado FROM app_Permiso, app_Estado as e, app_Trabajador as t, app_Trabajador as t2, app_Trabajador as t3, app_Categoria as c where pptr = '{}' and e.id_e = estado_id and t.id_coor = resp_area_id and t2.id_coor = resp_sitio_id and t3.id_coor = coordinador_id and app_Permiso.work_cat_id = c.cat_key".format(perm))
-        cursor2.execute("SELECT perm_cert, p.id_perm, p.pptr, c.cert_key, c.certificado from app_Permisos_certificado as pc, app_Certificado as c, app_Permiso as p where pc.certificado_id = c.cert_key and pc.permiso_id = p.id_perm and p.pptr = '{}'".format(perm))
+        cursor.execute("SELECT id_perm, date_request, date_begin_work, date_end_work, pptr, empresa_id, work, work_site, c.categoria, work_desc, t3.trabajador, t.trabajador, t2.trabajador, e.estado FROM app_permiso, app_estado as e, app_trabajador as t, app_trabajador as t2, app_trabajador as t3, app_categoria as c where pptr = '{}' and e.id_e = estado_id and t.id_coor = resp_area_id and t2.id_coor = resp_sitio_id and t3.id_coor = coordinador_id and app_permiso.work_cat_id = c.cat_key".format(perm))
+        cursor2.execute("SELECT perm_cert, p.id_perm, p.pptr, c.cert_key, c.certificado from app_permisos_certificado as pc, app_certificado as c, app_permiso as p where pc.certificado_id = c.cert_key and pc.permiso_id = p.id_perm and p.pptr = '{}'".format(perm))
         permission = cursor.fetchall()
         certificates = cursor2.fetchall()
         print("Permission:",permission)
@@ -341,7 +341,7 @@ def getPermissionByPPTR(request, perm):
 def categories_by_region(request):
     try:
         cursor = connection.cursor()
-        cursor.execute("SELECT count(work_cat), work_cat from app_Permiso group by work_cat")
+        cursor.execute("SELECT count(work_cat), work_cat from app_permiso group by work_cat")
         categories = cursor.fetchall()
         return JsonResponse({"status": 200, "cat": categories}, status=200)
     except (OperationalError, IntegrityError, InternalError, DataError, InterfaceError, NotSupportedError) as e:
@@ -382,7 +382,7 @@ def insert_cat(request):
     ]
     cursor = connection.cursor()
     for category in categories:
-        cursor.execute("INSERT INTO app_Categoria (cat_key, categoria, clase) values(%s, %s, %s)", [category[0], category[1], category[2]])
+        cursor.execute("INSERT INTO app_categoria (cat_key, categoria, clase) values(%s, %s, %s)", [category[0], category[1], category[2]])
     return JsonResponse({"cats": categories}, status=200)
 
 @require_GET

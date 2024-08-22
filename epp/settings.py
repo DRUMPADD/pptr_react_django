@@ -87,6 +87,9 @@ DATABASES = {
         'USER': os.environ.get("db_USER"),
         'PASSWORD': os.environ.get("db_PASSWORD"),
         'PORT': os.environ.get("db_PORT"),
+        'OPTIONS': {
+            'sql_mode': 'traditional',
+        }
     }
 }
 
