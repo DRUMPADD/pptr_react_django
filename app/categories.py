@@ -14,9 +14,4 @@ def getCategories(request, cat):
             return JsonResponse({"categories": []}, status=200)
     except (OperationalError, IntegrityError) as e:
         print(e)
-<<<<<<< HEAD
         return JsonResponse({"categories": []}, status=200)
-=======
-        return JsonResponse({"categories": []}, status=200)
-
->>>>>>> e6e48eaa3257401cc6e1fe5acee4a142cbea2185

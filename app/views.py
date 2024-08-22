@@ -1,5 +1,4 @@
 from django.shortcuts import render
-<<<<<<< HEAD
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_GET, require_POST
 from django.http import JsonResponse, HttpRequest
@@ -16,41 +15,10 @@ def check_permission(pptr):
         Buscar permiso
         return object
     '''
-=======
-from django.views.decorators.csrf import ensure_csrf_cookie, csrf_exempt
-from django.views.decorators.http import require_http_methods
-from django.http import JsonResponse
-from .models import Sede, Region, Empresa, Trabajador, Permiso, Certificado, Permisos_certificado, Categoria
-from django.db import connection, OperationalError, IntegrityError, InternalError, DataError, InterfaceError, NotSupportedError
-from django.template.exceptions import TemplateDoesNotExist, TemplateSyntaxError
-from django.core.exceptions import BadRequest, SuspiciousOperation
-import json
-# Create your views here.
-@require_http_methods(['GET'])
-def index(request):
-    try:
-        return render(request, "index.html")
-    except (TemplateDoesNotExist, TemplateSyntaxError, BadRequest, SuspiciousOperation) as e:
-        print(e)
-
-def create_company(id_comp, company, region):
-    try:
-        Empresa.objects.create(id_emp=id_comp, empresa=company, region_id=region)
-    except (OperationalError, IntegrityError, InternalError, DataError, InterfaceError, NotSupportedError) as e:
-        print(e)
-def create_employee(e_area, employee, region):
-    try:
-        Trabajador.objects.create(id_coor=e_area, trabajador=employee, region_id=region)
-    except (OperationalError, IntegrityError, InternalError, DataError, InterfaceError, NotSupportedError) as e:
-        print(e)
-
-def check_permission(pptr):
->>>>>>> e6e48eaa3257401cc6e1fe5acee4a142cbea2185
     try:
         return Permiso.objects.get(pptr=pptr)
     except (OperationalError, IntegrityError, InternalError, DataError, InterfaceError, NotSupportedError) as e:
         print(e)
-<<<<<<< HEAD
         return None
 
 def create_company(id_comp, company, region):
@@ -126,24 +94,11 @@ def registerPermission(request: HttpRequest):
         region: str = str(req_json["region"])
         company: str = str(req_json["empresa"])
         folio: str = str(req_json["folio_pptr"])
-=======
-
-@csrf_exempt
-@require_http_methods(['POST'])
-def registerPermission(request):
-    if request.method == 'POST':
-        req_json = json.loads(request.body.decode("utf-8"))
-        employees = [req_json["enc_sit"], req_json["enc_area"], req_json["coor"]]
-        region = str(req_json["region"])
-        company = str(req_json["empresa"])
-        folio = str(req_json["folio_pptr"])
->>>>>>> e6e48eaa3257401cc6e1fe5acee4a142cbea2185
         date_req = req_json["fecha_sol"]
         date_begin = req_json["fecha_ini"]
         date_finish = req_json["fecha_cie"]
         sup_comp = str(req_json["sup_comp"])
         tr = str(req_json["tr"])
-<<<<<<< HEAD
         sit_tr: str = str(req_json["sit_tr"])
         cat_tr: str = str(req_json["cat_tr"]).split(" - ")[1]
         desc_tr: str = str(req_json["desc_tr"])
@@ -185,89 +140,13 @@ def registerPermission(request):
         except (Permiso.DoesNotExist, Categoria.DoesNotExist, Trabajador.DoesNotExist, OperationalError, IntegrityError, InternalError, DataError, InterfaceError, NotSupportedError) as e:
             print(e)
             return JsonResponse({"status": "error", "title": "No se pudo crear 1", "msg": "No se pudo crear el permiso",}, status=200)
-=======
-        sit_tr = str(req_json["sit_tr"])
-        cat_tr = str(req_json["cat_tr"]).split(" - ")[1]
-        desc_tr = str(req_json["desc_tr"])
-        permiso = str(req_json["clase_perm"])
-        enc_sit = str(req_json["enc_sit"])
-        enc_area = str(req_json["enc_area"])
-        enc_coor = str(req_json["coor"])
-        certificados = req_json["certifs"]
-        inst = str(req_json["inst"])
-        e_sit =   ""
-        e_area = ""
-        coor = ""
-        comp = ""
-        print('-'.join([val for val in str(date_req).split("-")][::-1]) if date_req else "Nothing")
-        print("region:",region)
-        print("date_req:",date_req)
-        print("date_begin:",date_begin)
-        print("date_finish:",date_finish)
-        print("company:",company)
-        print("folio:",folio)
-        print("sup_comp:",sup_comp)
-        print("tr:",tr)
-        print("sit_tr:",sit_tr)
-        print("cat_tr:",cat_tr)
-        print("desc_tr:",desc_tr)
-        print("permiso:",permiso)
-        print("enc_sit:",enc_sit)
-        print("enc_area:",enc_area)
-        print("enc_coor:",enc_coor)
-        print("certifs:", certificados)
-        print("inst:", inst)
 
-        if len(company.split(" - ")) >= 2:
-            comp = company.split(" - ")[1]
-            print("Exist:",comp)
-        else:
-            comp = 'EMP-' + ''.join([str(letter[0]).upper() for letter in str(company).split(" ")]) + '-' + str(Empresa.objects.count() + 1)
-            print("New company id:",comp, company)
-            create_company(comp, company, region)
-
-        if len(enc_sit.split(" - ")) >= 2:
-            e_sit = enc_sit.split(" - ")[1]
-            print("Exist:", e_sit)
-        else:
-            employee = enc_sit
-            e_sit = 'TR-' + ''.join([spell_emp[0] for spell_emp in str(employee).split(" ")]) + '-' + str(Trabajador.objects.count() + 1)
-            print("New enc sit:", e_sit, employee)
-            create_employee(e_sit, employee, region)
-
-        if len(enc_area.split(" - ")) >= 2:
-            e_area = enc_area.split(" - ")[1]
-            print("Exist:", enc_area)
-        else:
-            employee = enc_area
-            e_area = 'TR-' + ''.join([spell_emp[0] for spell_emp in str(employee).split(" ")]) + '-' + str(Trabajador.objects.count() + int(1))
-            print("New enc area:", e_area, employee)
-            create_employee(e_area, employee, region)
-        
-        if len(enc_coor.split(" - ")) >= 2:
-            coor = enc_coor.split(" - ")[1]
-            print("Exist:", coor)
-        else:
-            employee = enc_coor
-            coor = 'TR-' + ''.join([spell_emp[0] for spell_emp in str(employee).split(" ")]) + '-' + str(Trabajador.objects.count() + 1)
-            print("New coor:", coor, employee)
-            create_employee(coor, employee, region)
-        id_permission_created = ""
-        try:
-            Permiso.objects.create(date_request=date_req, date_begin_work=date_begin, date_end_work=date_finish, pptr=folio, empresa=Empresa.objects.get(id_emp=comp), work=tr, work_site=sit_tr, work_cat=Categoria.objects.get(cat_key=cat_tr), work_desc=desc_tr, coordinador=Trabajador.objects.get(id_coor=coor), resp_area=Trabajador.objects.get(id_coor=e_area), resp_sitio=Trabajador.objects.get(id_coor=e_sit), instalacion=inst)
-        except (Permiso.DoesNotExist, OperationalError, IntegrityError, InternalError, DataError, InterfaceError, NotSupportedError) as e:
-            print(e)
->>>>>>> e6e48eaa3257401cc6e1fe5acee4a142cbea2185
         try:
             id_permission_created = Permiso.objects.get(pptr=folio)
             print(id_permission_created)
         except (PendingDeprecationWarning) as e:
             print(e)
-<<<<<<< HEAD
             return JsonResponse({"status": "error", "title": "Ocurrió un error 2", "msg": "No se pudo crear el permiso"}, status=200)
-=======
->>>>>>> e6e48eaa3257401cc6e1fe5acee4a142cbea2185
-    
         try:
             for c in certificados:
                 cert_ = Certificado.objects.get(cert_key=c)
@@ -279,7 +158,6 @@ def registerPermission(request):
     else:
         return JsonResponse({"status": "error", "msg": "Error del sistema"}, status=200)
 
-<<<<<<< HEAD
 @require_GET
 def count_categories_per_id(request: HttpRequest):
     categories = list(Permiso.objects.annotate(cantidad=Count('work_cat')).values('work_cat', 'cantidad', 'work_cat__categoria', 'work_cat__clase').order_by('work_cat__cat_key'))
@@ -358,8 +236,6 @@ def getRegion(request: HttpRequest, region: str):
 def index(request: HttpRequest):
     return render(request, "index.html")
 
-=======
->>>>>>> e6e48eaa3257401cc6e1fe5acee4a142cbea2185
 # def showStates(request):
 #     states = serializers.serialize("json", State.objects.all())
 #     data = json.loads(states)
@@ -371,10 +247,6 @@ def index(request: HttpRequest):
 #     state = json.loads(data)
     # return JsonResponse({"states": state}, status=200)
 
-<<<<<<< HEAD
-
-def insert_cat(request: HttpRequest):
-=======
 def showRegions(request):
     try:
         cursor = connection.cursor()
@@ -478,7 +350,6 @@ def categories_by_region(request):
 
 
 def insert_cat(request):
->>>>>>> e6e48eaa3257401cc6e1fe5acee4a142cbea2185
     categories = [
         ("A1", "Trabajos de corte y soldadura", "A"),
         ("A2", "Esmerillada en áreas clasificadas", "A"),
@@ -509,7 +380,6 @@ def insert_cat(request):
         ("B41", "Trabajos en registros eléctricos subterráneos", "B"),
         ("B42", "Maniobras y transporte de equipo o material", "B"),
     ]
-<<<<<<< HEAD
     cursor = connection.cursor()
     for category in categories:
         cursor.execute("INSERT INTO app_Categoria (cat_key, categoria, clase) values(%s, %s, %s)", [category[0], category[1], category[2]])
@@ -544,20 +414,3 @@ def all_comps_with_perms(request: HttpRequest):
     except (IntegrityError, DataError, OperationalError) as e:
         print(e)
         return JsonResponse({'companies': []}, status=500)
-=======
-
-    cursor = connection.cursor()
-    for category in categories:
-        cursor.execute("INSERT INTO app_Categoria (cat_key, categoria, clase) values(%s, %s, %s)", [category[0], category[1], category[2]])
-        # print(category[1])
-    return JsonResponse({"cats": categories}, status=200)
-
-def insertCertf(request):
-    try:
-        cursor = connection.cursor()
-        cursor.execute("SELECT * FROM app_Certificado")
-        return JsonResponse({"certs": cursor.fetchall()}, status=200)
-    except (OperationalError, IntegrityError, InternalError, DataError, InterfaceError, NotSupportedError) as e:
-        print(e)
-        return JsonResponse({"certs": []}, status=200)
->>>>>>> e6e48eaa3257401cc6e1fe5acee4a142cbea2185

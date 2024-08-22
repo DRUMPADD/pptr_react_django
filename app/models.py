@@ -56,15 +56,10 @@ class Categoria(models.Model):
 
 class Permiso(models.Model):
     id_perm = models.AutoField(primary_key=True)
-<<<<<<< HEAD
+
     date_request = models.DateField(default=timezone.now)
     date_begin_work = models.DateField(default=timezone.now)
     date_end_work = models.DateField(default=timezone.now)
-=======
-    date_request = models.DateField(default=timezone.now())
-    date_begin_work = models.DateField(default=timezone.now())
-    date_end_work = models.DateField(default=timezone.now())
->>>>>>> e6e48eaa3257401cc6e1fe5acee4a142cbea2185
     type_permission = models.CharField(max_length=30, default="", blank=True)
     pptr = models.CharField(max_length=50, default="", unique=True)
     empresa = models.ForeignKey(Empresa, on_delete=models.CASCADE)
@@ -81,18 +76,6 @@ class Permiso(models.Model):
     def __str__(self):
         return f"{self.id_perm}"
 
-<<<<<<< HEAD
-# class Permiso_terminado(models.Model):
-#     id = models.CharField(primary_key=True, max_length=30)
-#     folio = models.ForeignKey(Permiso, on_delete=models.CASCADE, related_name='permission_finished')
-#     motivo = models.CharField(max_length=500)
-
-#     def __str__(self):
-#         return f"{self.folio} - {self.motivo}"
-
-class Permiso_Region(models.Model):
-    permiso = models.ForeignKey(Permiso, on_delete=models.CASCADE, related_name='permission_region')
-=======
 class Permiso_terminado(models.Model):
     id = models.CharField(primary_key=True, max_length=30)
     folio = models.ForeignKey(Permiso, on_delete=models.CASCADE)
@@ -103,15 +86,9 @@ class Permiso_terminado(models.Model):
 
 class Permiso_Region(models.Model):
     permiso = models.ForeignKey(Permiso, on_delete=models.CASCADE)
->>>>>>> e6e48eaa3257401cc6e1fe5acee4a142cbea2185
     region = models.ForeignKey(Region, on_delete=models.CASCADE)
 
 class Permisos_certificado(models.Model):
     perm_cert = models.AutoField(primary_key=True)
-<<<<<<< HEAD
-    permiso = models.ForeignKey(Permiso, on_delete=models.CASCADE, related_name='permission_w_cert')
-    certificado = models.ForeignKey(Certificado, on_delete=models.CASCADE, related_name='cert')
-=======
     permiso = models.ForeignKey(Permiso, on_delete=models.CASCADE)
     certificado = models.ForeignKey(Certificado, on_delete=models.CASCADE)
->>>>>>> e6e48eaa3257401cc6e1fe5acee4a142cbea2185

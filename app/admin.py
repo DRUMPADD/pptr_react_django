@@ -1,14 +1,7 @@
 from django.contrib import admin
-<<<<<<< HEAD
-from django.contrib.auth.models import Group
-from .models import Region, Empresa, Sede, Trabajador, Estado, Permiso, Categoria, Certificado, Permisos_certificado, Permiso_Region
-# Register your models here.
-admin.site.register((Region, Empresa, Sede, Estado, Permiso_Region, ))
-=======
 from .models import Region, Empresa, Sede, Trabajador, Estado, Permiso, Permiso_terminado, Categoria, Certificado, Permisos_certificado
 # Register your models here.
-admin.site.register((Region, Empresa, Sede, Trabajador, Estado, Permiso_terminado))
->>>>>>> e6e48eaa3257401cc6e1fe5acee4a142cbea2185
+admin.site.register((Region, Empresa, Sede, Estado, Permiso_terminado))
 
 @admin.register(Permiso)
 class PermisoAdmin(admin.ModelAdmin):
@@ -28,15 +21,10 @@ class Certificado_PermisoAdmin(admin.ModelAdmin):
 @admin.register(Certificado)
 class CategoriaAdmin(admin.ModelAdmin):
     model = Certificado
-<<<<<<< HEAD
+
     list_display = ("cert_key", "certificado")
 
 @admin.register(Trabajador)
 class TrabajadorAdmin(admin.ModelAdmin):
     model = Trabajador
     list_display = ("id_coor", "trabajador", "region")
-
-admin.site.unregister(Group)
-=======
-    list_display = ("cert_key", "certificado")
->>>>>>> e6e48eaa3257401cc6e1fe5acee4a142cbea2185

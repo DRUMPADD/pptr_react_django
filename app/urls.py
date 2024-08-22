@@ -8,7 +8,6 @@ urlpatterns = [
     # path("states", v.showStates, name="showStates"),
     # path("state/<str:name>", v.getState, name="showState"),
     path("regions", v.showRegions, name="showRegions"),
-<<<<<<< HEAD
     path("sedes/<str:region_>", v.showSedesFromRegion, name="showSedes"),
     path("companies/<str:region>", v.showCompaniesFromRegion, name="showCompanies"),
     path("company/c_company_region", v.company_p_region, name="company_region"),
@@ -26,18 +25,4 @@ urlpatterns = [
     path("classes_p_type", v.classes_p_type, name="getClassesPerType"),
     path("certificates", v.get_certificates, name="certificates"),
     path("createCategory", v.insert_cat, name="categories")
-=======
-    path("sedes/<str:region>", v.showSedesFromRegion, name="showSedes"),
-    path("companies/<str:region>", v.showCompaniesFromRegion, name="showCompanies"),
-    path("workers/<str:region>", v.showWorkersFromRegion, name="showWorkers"),
-    path("region/<str:region>", v.getRegion, name="showRegion"),
-    path("permissions", v.getPermissions, name="getPermissions"),
-    path("permissions/<str:perm>", v.getPermission, name="getPermission"),
-    path("permission/<str:perm>", v.getPermissionByPPTR, name="getPermissionPPTR"),
-    path("categories", v.categories_by_region, name="categoriesByRegion"),
-    path("getCategories/<str:cat>", cat_v.getCategories, name="getCategories"),
-    path("certificates", v.insertCertf, name="certificates"),
-    # path("categories", v.insert_cat, name="categories"),
-    path("createCategory", v.insert_cat, name="category")
->>>>>>> e6e48eaa3257401cc6e1fe5acee4a142cbea2185
 ]
