@@ -186,8 +186,10 @@ def showRegions(request: HttpRequest):
     ''' GET
         Return all regions
     '''
+    print("Hello world")
     try:
-        regions = list(Region.objects.values_list('id_reg', 'region'))
+        regions = list(Region.objects.values('id_reg', 'region'))
+        # print(regions)
         return JsonResponse({"regions": regions}, status=200)
     except (OperationalError, IntegrityError, InternalError, DataError, InterfaceError, NotSupportedError) as e:
         print(e)
@@ -228,7 +230,9 @@ def showSedesFromRegion(request: HttpRequest, region_: str):
 
 @require_GET
 def getRegion(request: HttpRequest, region: str):
+    print(region)
     regions = list(Region.objects.filter(region__contains=region).values('id_reg', 'region'))
+    print(regions)
     return JsonResponse({"regions": regions}, status=200)
 
 
@@ -247,56 +251,6 @@ def index(request: HttpRequest):
 #     state = json.loads(data)
     # return JsonResponse({"states": state}, status=200)
 
-def showRegions(request):
-    try:
-        cursor = connection.cursor()
-        cursor.execute("SELECT * FROM app_region")
-        regions = cursor.fetchall()
-        return JsonResponse({"regions": regions}, status=200)
-    except (OperationalError, IntegrityError, InternalError, DataError, InterfaceError, NotSupportedError) as e:
-        print(e)
-        return JsonResponse({"regions": []}, status=200)
-
-def showCompaniesFromRegion(request, region):
-    try:
-        cursor = connection.cursor()
-        cursor.execute("SELECT id_emp, empresa FROM app_Empresa as emp, app_region as r WHERE r.id_reg = emp.region_id and r.id_reg = %s", [region])
-        companies = cursor.fetchall()
-        return JsonResponse({"companies": companies}, status=200)
-    except (OperationalError, IntegrityError, InternalError, DataError, InterfaceError, NotSupportedError) as e:
-        print(e)
-        return JsonResponse({"companies": []}, status=200)
-
-def showWorkersFromRegion(request, region):
-    try:
-        cursor = connection.cursor()
-        cursor.execute("SELECT id_coor, trabajador FROM app_trabajador as t, app_region as r WHERE r.id_reg = t.region_id and r.id_reg = %s", [region])
-        workers = cursor.fetchall()
-        return JsonResponse({"workers": workers}, status=200)
-    except (OperationalError, IntegrityError, InternalError, DataError, InterfaceError, NotSupportedError) as e:
-        print(e)
-        return JsonResponse({"workers": []}, status=200)
-
-def showSedesFromRegion(request, region):
-    try:
-        cursor = connection.cursor()
-        cursor.execute("SELECT id_sede, sede FROM app_Sede as s, app_region as r WHERE r.id_reg = s.region_id and r.id_reg = %s", [region])
-        sedes = cursor.fetchall()
-        return JsonResponse({"sedes": sedes}, status=200)
-    except (OperationalError, IntegrityError, InternalError, DataError, InterfaceError, NotSupportedError) as e:
-        print(e)
-        return JsonResponse({"sedes": []}, status=200)
-
-
-def getRegion(request, region):
-    try:
-        cursor = connection.cursor()
-        cursor.execute(f"SELECT id_reg, region FROM app_region WHERE region LIKE '%{region}%'")
-        region = cursor.fetchall()
-        return JsonResponse({"regions": region}, status=200)
-    except (OperationalError, IntegrityError, InternalError, DataError, InterfaceError, NotSupportedError) as e:
-        print("Permission error:",e)
-        return JsonResponse({"status": "error", "msg": "Error del sistema"}, status=200)
 
 def getPermission(request, perm):
     try:
@@ -319,33 +273,6 @@ def getPermissions(request):
         return JsonResponse({"status": "success", "msg": permission}, status=200)
     except (OperationalError, IntegrityError, InternalError, DataError, InterfaceError, NotSupportedError) as e:
         print(e)
-        return JsonResponse({"status": "error", "msg": "Error del sistema"}, status=200)
-
-def getPermissionByPPTR(request, perm):
-    try:
-        print(perm)
-        cursor = connection.cursor()
-        cursor2 = connection.cursor()
-        cursor.execute("SELECT id_perm, date_request, date_begin_work, date_end_work, pptr, empresa_id, work, work_site, c.categoria, work_desc, t3.trabajador, t.trabajador, t2.trabajador, e.estado FROM app_permiso, app_estado as e, app_trabajador as t, app_trabajador as t2, app_trabajador as t3, app_categoria as c where pptr = '{}' and e.id_e = estado_id and t.id_coor = resp_area_id and t2.id_coor = resp_sitio_id and t3.id_coor = coordinador_id and app_permiso.work_cat_id = c.cat_key".format(perm))
-        cursor2.execute("SELECT perm_cert, p.id_perm, p.pptr, c.cert_key, c.certificado from app_permisos_certificado as pc, app_certificado as c, app_permiso as p where pc.certificado_id = c.cert_key and pc.permiso_id = p.id_perm and p.pptr = '{}'".format(perm))
-        permission = cursor.fetchall()
-        certificates = cursor2.fetchall()
-        print("Permission:",permission)
-        print("Certificates:",certificates)
-        return JsonResponse({"status": "success", "msg": permission, "certs": certificates}, status=200)
-    except (OperationalError, IntegrityError, InternalError, DataError, InterfaceError, NotSupportedError) as e:
-        print(e)
-        return JsonResponse({"status": "error", "msg": "Error del sistema"}, status=200)
-
-
-def categories_by_region(request):
-    try:
-        cursor = connection.cursor()
-        cursor.execute("SELECT count(work_cat), work_cat from app_permiso group by work_cat")
-        categories = cursor.fetchall()
-        return JsonResponse({"status": 200, "cat": categories}, status=200)
-    except (OperationalError, IntegrityError, InternalError, DataError, InterfaceError, NotSupportedError) as e:
-        print("Permission error:",e)
         return JsonResponse({"status": "error", "msg": "Error del sistema"}, status=200)
 
 

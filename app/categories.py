@@ -6,7 +6,7 @@ def getCategories(request, cat):
     try:
         if cat != "":
             cursor = connection.cursor()
-            cursor.execute("SELECT cat_key, categoria, clase FROM app_Categoria WHERE clase = %s", [cat])
+            cursor.execute("SELECT cat_key, categoria, clase FROM app_categoria WHERE clase = %s", [cat])
             cats = cursor.fetchall()
             print(cats)
             return JsonResponse({"categories": cats}, status=200)
